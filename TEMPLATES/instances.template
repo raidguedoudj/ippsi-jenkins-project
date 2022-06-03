@@ -1,0 +1,14 @@
+resource "aws_instance" "<##INFRA_NAME##>-<##INSTANCE_NAME##>" {
+        key_name = "vittorio_keypair"
+        ami = "ami-021d41cbdefc0c994"
+        security_groups = ["${aws_security_group.<##SECURITY_GROUP##>.id}"]
+        subnet_id = "${aws_subnet.<##SUBNET_ID##>.id}"
+	instance_type = "t2.micro"
+	user_data = "${file("<##USER_DATA##>")}"
+        associate_public_ip_address = <##PUBLIC_IP##>
+
+        tags = {
+                Name = "<##INSTANCE_NAME##>"
+        }
+}
+

@@ -1,0 +1,8 @@
+resource "aws_security_group" "<##INFRA_NAME##>-<##SECURITY_GROUP##>" {
+        name = "<##INFRA_NAME##>-<##SECURITY_GROUP##>"
+        description = "<##INFRA_NAME##>-<##SECURITY_GROUP##>"
+        vpc_id = "${aws_vpc.<##INFRA_NAME##>-vpc.id}"
+
+        <##SECURITY_GROUP_RULES##>
+}
+
