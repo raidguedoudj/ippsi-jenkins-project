@@ -46,9 +46,10 @@ cd /var/jenkins_home/archi/${CLIENT_ID}/
 terraform init
 terraform apply -auto-approve
 
-# git add .
-# git commit "Added architecture of client : #${CLIENT_ID}"
-# git push
+git add .
+git commit -m "Added architecture of client : #${CLIENT_ID}"
+git push
 
-# rm -rf /var/jenkins_home/archi
+rm -rf /var/jenkins_home/archi
+
 
