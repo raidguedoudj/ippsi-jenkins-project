@@ -39,8 +39,8 @@ do
             sed -i "s|<##SG_TYPE##>|${SG_TYPE}|g" GENERATED/ingress.tf
             sed -i "s|<##SG_BLOCK##>|${SG_BLOCK}|g" GENERATED/ingress.tf
 
-            cat GENERATED/ingress.tf >> GENERATED/${SG_NAME}-ingress.tf
-            echo "" >> GENERATED/${SG_NAME}-ingress.tf
+            cat GENERATED/ingress.tf >> GENERATED/${SG_NAME}_ingress.tf
+            echo "" >> GENERATED/${SG_NAME}_ingress.tf
 
             rm GENERATED/ingress.tf
         fi
@@ -51,18 +51,33 @@ done < flow_matrix.csv
 
 cp TEMPLATES/egress.template GENERATED/egress.tf
 
-for SGROUP in $(ls GENERATED/*-ingress.tf)
+for SGROUP in $(ls GENERATED/*_ingress.tf | cut -d "/" -f2 | cut -d "_" -f1)
 do
     cp TEMPLATES/security_group.template GENERATED/${SGROUP}.tf
 
-    cat GENERATED/${SGROUP}-ingress.tf >> GENERATED/rules.tf
+    sed -i "s|<##SECURITY_GROUP##>|${SGROUP}|g" GENERATED/${SGROUP}.tf
+
+    cat GENERATED/${SGROUP}_ingress.tf >> GENERATED/rules.tf
     cat GENERATED/egress.tf >> GENERATED/rules.tf
 
-    RULES_TEMP=$(<GENERATED/rules.tf)
+    # RULES_TEMP=$(<GENERATED/rules.tf)
 
-    sed -i "s|<##SECURITY_GROUP_RULES##>|${RULES_TEMP}|g" GENERATED/${SGROUP}.tf
+    # sed -i "s|<##SECURITY_GROUP_RULES##>|${RULES_TEMP}|g" GENERATED/${SGROUP}.tf
+
+    LTOWRITE=$(cat -n GENERATED/${SGROUP}.tf | grep "<##SECURITY_GROUP_RULES##>" | sed 's|\t| |g' | tr -s " " | cut -d" " -f2)
+
+    echo $LTOWRITE
+
+    sed -i "${LTOWRITE} r GENERATED/rules.tf" GENERATED/${SGROUP}.tf
+    sed -i "s|<##SECURITY_GROUP_RULES##>||g" GENERATED/${SGROUP}.tf
+
     cat GENERATED/${SGROUP}.tf >> GENERATED/security_groups.tf
 
+    # clean generated files
     rm GENERATED/${SGROUP}.tf
+    rm GENERATED/${SGROUP}_ingress.tf
+    rm GENERATED/rules.tf
 done
+
+rm GENERATED/egress.tf
 

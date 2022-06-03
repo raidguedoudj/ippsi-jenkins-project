@@ -13,7 +13,7 @@ do
             SGROUP=$(echo $line | cut -d";" -f4)
             PUBIP=$(echo $line | cut -d";" -f5)
 
-            cp TEMPLATES/instance.template GENERATED/${INSTANCE_NAME}-instance.tf
+            cp TEMPLATES/instances.template GENERATED/${INSTANCE_NAME}-instance.tf
 
             sed -i "s|<##INSTANCE_NAME##>|${INSTANCE_NAME}|g" GENERATED/${INSTANCE_NAME}-instance.tf
             sed -i "s|<##SUBNET_NAME##>|${SUBNET_NAME}|g" GENERATED/${INSTANCE_NAME}-instance.tf
