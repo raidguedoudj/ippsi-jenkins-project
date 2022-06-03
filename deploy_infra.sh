@@ -3,7 +3,8 @@
 # Suppression du dossier du job précédent s'il existe
 
 # Créer un dossier avec un nom unique basé sur le client-id
-git clone ${ARCHI_GIT_URL} /home/archi
+
+git clone ${ARCHI_GIT_URL} /var/jenkins_home/archi
 
 mkdir GENERATED/
 

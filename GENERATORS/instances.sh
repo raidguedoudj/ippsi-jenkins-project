@@ -24,7 +24,7 @@ do
     else
         I=1
     fi
-done < instances_matrix
+done < instances_matrix.csv
 
 cat GENERATED/*-instance.tf >> GENERATED/instances.tf
 

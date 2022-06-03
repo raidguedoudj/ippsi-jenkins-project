@@ -51,7 +51,7 @@ done < flow_matrix.csv
 
 cp TEMPLATES/egress.template GENERATED/egress.tf
 
-for SGROUP in $(ls *-ingress.tf)
+for SGROUP in $(ls GENERATED/*-ingress.tf)
 do
     cp TEMPLATES/security_group.template GENERATED/${SGROUP}.tf
 
