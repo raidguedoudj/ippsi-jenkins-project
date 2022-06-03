@@ -4,6 +4,6 @@ yum update -y
 yum install -y httpd
 systemctl enable --now httpd
 
-cd /var/www/html
-git clone <##REPO##> .
+echo "<h1> Hello </h1>" > /var/www/html/index.html
+# git clone <##REPO##> . #A changer 
 
