@@ -6,6 +6,6 @@
 bash ./GENERATORS/check_env.sh
 echo "Finished check env"
 git clone ${ARCHI_GIT_URL} /var/jenkins_home/archi
-cd ${CLIENT_ID}
+cd /var/jenkins_home/archi/${CLIENT_ID}
 terraform destroy
 echo "Terraform destroyed for client : {$CLIENT_ID}"
