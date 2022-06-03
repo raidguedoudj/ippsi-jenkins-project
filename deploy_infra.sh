@@ -39,10 +39,12 @@ fi
 
 mv GENERATED/*.tf /var/jenkins_home/archi/${CLIENT_ID}/
 
+cp -r SCRIPTS/ /var/jenkins_home/archi/${CLIENT_ID}/
+
 cd /var/jenkins_home/archi/${CLIENT_ID}/
 
-# terraform init
-# terraform apply -auto-approve
+terraform init
+terraform apply -auto-approve
 
 # git add .
 # git commit "Added architecture of client : #${CLIENT_ID}"
